@@ -9,17 +9,50 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.css" rel="stylesheet">
 
     <style>
-
+        .container {
+            margin-top: 40px;
+        }
     </style>
 </head>
 
 <body>
 
-    <div id='root'>
+    <div id='app'>
+
+        <spa-navbar></spa-navbar>
+
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-6">
+                        <form>
+                            <div class="form-group">
+                                <label for="inputJs">Unminify Javascript</label>
+                                <textarea class="form-control" id="inputJs" rows="10" cols="50"
+                                    placeholder="Put unminify javascript here" v-model="inputJs">
+                                    </textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+
+                        <h4 v-text="inputJs"></h4>
+                    </div>
+                    <div class="col-6">
+                        <label>Minify Javascript</label>
+                        <div class="card">
+                            <div class="card-body">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
 
 
     </div>
-
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
