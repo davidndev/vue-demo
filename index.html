@@ -4,14 +4,16 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Verify Phone SPA</title>
     <meta name="author" content="David Nguyen">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.css" rel="stylesheet">
 
     <style>
-        .container {
-            margin-top: 40px;
+        nav {
+            margin-bottom: 20px;
         }
+
         .alert {
             margin-top: 20px;
         }
@@ -21,49 +23,55 @@
 <body>
 
     <div id='app'>
+        <div class="container">
+            <spa-navbar></spa-navbar>
 
-        <spa-navbar></spa-navbar>
+            <section>
 
-        <section>
-            <div class="container">
                 <div class="row">
                     <div class="col-6">
                         <form method="POST" action="https://javascript-minifier.com/raw" @submit.prevent="onSubmit">
                             <div class="form-group">
                                 <label for="inputPhone">Phone</label>
-                                <input class="form-control" id="inputPhone" type="text"
-                                    placeholder="Phone Number" v-model="inputPhone" @keyUp="validPhone"/>
+                                <input class="form-control" id="inputPhone" type="text" placeholder="Phone Number"
+                                    v-model="inputPhone" @keyUp="validPhone" />
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary" :disabled="!validPhoneFormat">Submit</button>
                         </form>
 
                         <div class="alert alert-warning" role="alert" v-if="!validPhoneFormat && inputPhone != ''">
                             This is not a valid phone number formart. Try XXX-XXX-XXXX
                         </div>
                         <div class="alert alert-success" role="alert" v-if="verifyResponse.valid">
-                            This is a valid phone number from {{verifyResponse.location}} on {{verifyResponse.carrier}} carrier!
+                            This is a valid phone number from {{verifyResponse.location}} on {{verifyResponse.carrier}}
+                            carrier!
+                        </div>
+                        <div class="alert alert-danger" role="alert" v-if="!verifyResponse.valid && JSON.stringify(verifyResponse).length > 2">
+                            Invalid Number! The number is not registered!
                         </div>
                     </div>
                     <div class="col-6">
                         <label>API Response</label>
                         <div class="card">
                             <div class="card-body">
-                                <p v-if="JSON.stringify(verifyResponse).length > 2">{{JSON.stringify(verifyResponse)}}</p>
+                                <p v-if="JSON.stringify(verifyResponse).length > 2">{{JSON.stringify(verifyResponse)}}
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
+            </section>
 
-            </div>
-        </section>
+        </div>
+
 
 
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    
+
     <script src="app.js"></script>
 </body>
 
